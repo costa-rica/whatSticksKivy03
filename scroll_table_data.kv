@@ -1,0 +1,50 @@
+#:set nr_buffer dp(1)
+#:set table_bottom_buffer dp(20)
+<ScrollViewForTable>
+  canvas.before:
+    Color:
+      rgba: 100/255, 100/255, 100/255, 1
+    Rectangle:
+      size:self.size
+
+
+<TableData>
+  cols:3
+  size_hint: 1,None
+  height: self.minimum_height+table_bottom_buffer
+
+
+<AreYouSureBox>
+  size:(400,300)
+  size_hint:(None, None)
+  pos_hint:{'x':.2,'y':.29}
+  canvas.before:
+    Color:
+      rgba: .7,.7,.7,1
+    RoundedRectangle:
+      size: self.size
+      pos: self.pos
+  orientation: 'vertical'
+  MDLabel:
+    text:'Are you sure you want to delete activity?'
+    pos_hint: {"x":0.2}
+    font_size:30
+  BoxLayout:
+    Button:
+      background_color: .22,1,.078,1
+
+      size_hint_x:.8
+      pos_hint:{'center_x':.5}
+      text: 'Yes, Delete'
+      # on_release: root.parent.remove_widget(root)
+      on_press: root.yes_button()
+    Button:
+      background_color: .22,1,.078,1
+
+      size_hint_x:.8
+      pos_hint:{'center_x':.5}
+      text: 'No'
+      # on_release: root.parent.remove_widget(root)
+      on_press: root.no_button()
+  MDLabel:
+    size_hint_x:.01
