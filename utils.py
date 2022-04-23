@@ -4,32 +4,45 @@ import time
 import pytz
 from pytz import timezone
 
+base_url = 'http://localhost:8000'
 
-
-def add_activity_util(title, note,user_id,user_timezone,datetime_thing, user_email,user_password):
-    url="https://api.what-sticks-health.com/add_activity"
-
+def add_activity_util(title, note,user_id,user_timezone,datetime_thing, user_email,login_token):
+    url=base_url + "/add_activity"
+    print('**** Add activity ****')
     payload={}
     #convert datetime_thing to string
     datetime_thing_str=datetime_thing.strftime('%Y-%m-%dT%H:%M:%S')
-    payload['datetime_of_activity']=datetime_thing_str
-    payload["note"]= note
-    payload["source_filename"]= "phone application"
-    payload["time_stamp_utc"]= datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
-    payload["user_id"]= user_id
-    payload["var_activity"]= title
+    # payload['datetime_of_activity']=datetime_thing_str
+    # payload["note"]= note
+    # payload["source_name"]= "phone application"
+    # payload["time_stamp_utc"]= datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
+    # payload["user_id"]= user_id
+    # payload["var_activity"]= title
     user_tz = timezone(user_timezone)
     datetime_tz_aware=user_tz.localize(datetime_thing)
     timezone_delta=datetime_tz_aware.utcoffset().total_seconds()/60
-    payload["var_timezone_utc_delta_in_mins"]= timezone_delta
-    payload["var_type"]= "Activity"
+    # payload["var_timezone_utc_delta_in_mins"]= timezone_delta
+    # payload['time_offset']=timezone_delta
+    # payload["var_type"]= "Activity"
 
-    headers={}
-    headers['Content-Type']='application/json'
+
+    payload = {
+                'datetime_of_activity':datetime_thing_str,
+                'time_offset': timezone_delta,
+                'var_activity':title,
+                'user_id':user_id,
+                'source_name': 'API',
+                # 'source_notes':'no notes',
+                'weight': 150,
+                'note': note
+                }
+
+    headers={'Content-Type':'application/json','x-access-token':login_token}
+    # headers['Content-Type']='application/json'
+    # headers['x-access-token'] = login_token
 
     response = requests.request("POST", url, headers=headers,
-        data=str(json.dumps(payload)),
-        auth=(user_email, user_password))
+        data=str(json.dumps(payload)))
     print('api response:::',response.status_code)
     # return ('success! ', payload)
 

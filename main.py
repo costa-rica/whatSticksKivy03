@@ -16,7 +16,7 @@ from kivymd.uix.toolbar import MDToolbar
 from kivy.core.window import Window
 from kivy.utils import platform
 import datetime;from datetime import timedelta
-from utils import add_activity_util, current_time_util
+from utils import add_activity_util, current_time_util, base_url
 import json
 from kivy.uix.widget import Widget
 from kivy.uix.floatlayout import FloatLayout
@@ -54,7 +54,7 @@ class ParentScreen1(Screen):
 
     def login_button(self):
         # base_url= 'http://localhost:8000'
-        base_url = 'https://api.what-sticks-health.com'
+        # base_url = 'https://api.what-sticks-health.com'
         response_login = requests.request('GET',base_url + '/login',
             auth=(self.email.text,self.password.text))
         # response = requests.request('GET','https://api.what-sticks-health.com/login',
@@ -170,6 +170,7 @@ class ActivityScreen(Screen):
     user_timezone=''
     user_id_str=''
     password=''
+
     # user_timezone='Europe/Paris'#'US/Eastern'
     def __init__(self,**kwargs):
         super(ActivityScreen,self).__init__(**kwargs)
@@ -190,7 +191,7 @@ class ActivityScreen(Screen):
         note=self.note.text
         try:
             datetime_thing=datetime.datetime.strptime(self.ids.date_thing.text +" "+ self.ids.time_thing.text,'%m/%d/%Y %I:%M %p')
-            add_activity_util(title, note,self.user_id_str,self.user_timezone,datetime_thing, self.email,self.password)
+            add_activity_util(title, note,self.user_id_str,self.user_timezone,datetime_thing, self.email,self.login_token)
             self.add_widget(ConfirmBox())
 
         except ValueError:
@@ -213,7 +214,7 @@ class TableScreen(Screen):
     user_id_str=''
     email=''
     password=''
-    url_get_activities='https://api.what-sticks-health.com/get_user_health_descriptions/'
+    # url_get_activities='https://api.what-sticks-health.com/get_user_health_descriptions/'
     def __init__(self,**kwargs):
         super(TableScreen,self).__init__(**kwargs)
         # print('kwargs::',kwargs)
@@ -331,6 +332,8 @@ class HeadingBox(BoxLayout):
     def date_sort_btn(self):
         self.btn_date_press_count+=1
         self.table_data=self.parent.parent.children[0].children[0].children[0]
+        #scroll_table_data TableData(GridLayout)
+        print('what is table_data::::', self.table_data)
         self.table_data.clear_widgets()
         # if self.btn_date_press_count==0:
         #     pass
