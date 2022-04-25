@@ -1,5 +1,3 @@
-#python==3.9.2
-#pip==20.2.3
 appnope==0.1.2
 argon2-cffi==21.1.0
 arrow==1.2.1
@@ -39,10 +37,10 @@ jupyter-console==6.4.0
 jupyter-core==4.9.1
 jupyterlab-pygments==0.1.2
 jupyterlab-widgets==1.0.2
-#Kivy==2.0.0
-#Kivy-Garden==0.1.4
-#kivy-ios @ git+https://github.com/kivy/kivy-ios.git@c807e240b558e30bd226519e71813a62ecbb258c
-#kivymd==0.104.2
+Kivy==2.1.0
+Kivy-Garden==0.1.5
+kivy-ios @ git+https://github.com/kivy/kivy-ios.git@929897c84a4093a27a2beb9169b342842a73a065
+kivymd==0.104.2
 MarkupSafe==2.0.1
 matplotlib-inline==0.1.3
 mistune==0.8.4
