@@ -49,8 +49,17 @@ class ParentScreen1(Screen):
         screenbackground=CanvasWidget()
         self.add_widget(screenbackground,index=99)
         print('ParentScreen1 initialized')
+
     def on_enter(self):
         print('ParentScreen2 on_enter')
+
+    # def show_password(self, checkbox, value):
+    #     if value:
+    #         self.root.ids.password.password = True
+    #         self.root.ids.password_text.text = "Hide password"
+    #     else:
+    #         self.root.ids.password.password = True
+    #         self.root.ids.password_text.text = "Show password"
 
     def login_button(self):
         # base_url= 'http://localhost:8000'
@@ -77,8 +86,6 @@ class ParentScreen1(Screen):
             print(json.loads(response_user_data.text))
             print(type(json.loads(response_user_data.text)))
 
-            # print('decrypted_token_dict:::', decrypted_token_dict)
-            # print(dir(itsdangerous))
 
             # for i in user_data_dict:
             if user_data_dict['email']==self.email.text:
@@ -106,6 +113,7 @@ class ParentScreen1(Screen):
                 print('BOTH Tokens Accepted! :::', login_token)
             else:
                 invalidLogin()
+
 
 class ParentScreen2(Screen):
     # user_timezone=''
@@ -581,6 +589,14 @@ class MainApp(MDApp):
         self.icon = "icon.png"
         # self.config_custom = Config()
         return psm
+
+    def show_password(self, checkbox, value):
+        if value:
+            self.ps1.ids.password.password = False
+            self.ps1.ids.password_text.text = "Hide password"
+        else:
+            self.ps1.ids.password.password = True
+            self.ps1.ids.password_text.text = "Show password"
 
 if __name__ == "__main__":
     MainApp().run()

@@ -40,7 +40,7 @@
       current_hint_text_color:.2,.2,.2,1#works label changes color
       text_color: 0,0,0,1#works text color
       size_hint_x: None
-      width: 400
+      width: 600
       font_size: 30
       pos_hint: {"center_x":0.5}
     MDTextField:
@@ -55,10 +55,23 @@
       line_color_focus:0,0,0,1
       line_color_normal:0,0,0,1
       size_hint_x: None
-      width: 400
+      width: 600
       font_size: 40
       pos_hint: {"center_x":0.5}
       password: True
+
+    MDCheckbox:
+      size_hint: None, None
+      size: "48dp", "48dp"
+    # pos_hint: {"center_x": .14, "center_y":.43}
+      pos_hint: {"center_x": .14}
+      on_active: app.show_password(*args)
+    #
+    MDLabel:
+      id: password_text
+      text: "Show Password"
+      post_hint: {"center_x":.7}
+
     BoxLayout:
       padding: (0,100)
       Label:

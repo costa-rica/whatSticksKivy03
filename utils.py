@@ -4,8 +4,8 @@ import time
 import pytz
 from pytz import timezone
 
-# base_url = 'http://api.what-sticks-health.com'
-base_url = 'http://localhost:8000'
+base_url = 'https://api.what-sticks-health.com'
+# base_url = 'http://localhost:8000'
 
 def add_activity_util(title, note,user_id,user_timezone,datetime_thing, user_email,login_token):
     url=base_url + "/add_activity"
@@ -32,7 +32,7 @@ def add_activity_util(title, note,user_id,user_timezone,datetime_thing, user_ema
                 'time_offset': timezone_delta,
                 'var_activity':title,
                 'user_id':user_id,
-                'source_name': 'API',
+                'source_name': 'iphone',
                 # 'source_notes':'no notes',
                 'weight': 150,
                 'note': note
